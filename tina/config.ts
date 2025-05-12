@@ -65,14 +65,6 @@ export default defineConfig({
               body,
             ],
           },
-          // {
-          //   name: "marketing",
-          //   label: "Marketing Page",
-          //   inline: true,
-          //   fields: [
-          //     //... marketing page fields
-          //   ],
-          // },
         ],
       },
       {
