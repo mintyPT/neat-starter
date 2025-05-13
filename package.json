@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.2",
+    "markdown-it": "^14.1.0",
     "postcss": "^8.4.5",
     "tinacms": "^2.7.6"
   }

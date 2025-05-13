@@ -8,12 +8,27 @@ const branch =
   process.env.HEAD ||
   "main";
 
+////////////////////////////////////////////////////////////
+// Fields
+////////////////////////////////////////////////////////////
+const className: TinaField = {
+  type: "string",
+  name: "className",
+  label: "CSS Classes",
+};
+
 const title: TinaField = {
   type: "string",
   name: "title",
   label: "Title",
   isTitle: true,
   required: true,
+};
+
+const richText: TinaField = {
+  type: "rich-text",
+  name: "richText",
+  label: "Rich Text",
 };
 
 const body: TinaField = {
@@ -23,13 +38,10 @@ const body: TinaField = {
   isBody: true,
 };
 
-const richText: TinaField = {
-  type: "rich-text",
-  name: "richText",
-  label: "Rich Text",
-};
-
-const heroBlock: Template = {
+////////////////////////////////////////////////////////////
+// Blocks / Templates
+////////////////////////////////////////////////////////////
+const heroTemplate: Template = {
   name: "hero",
   label: "Hero",
   fields: [
@@ -79,26 +91,30 @@ const featureBlock: Template = {
   ],
 };
 
-const contentBlock: Template = {
+const contentTemplate: Template = {
   name: "content",
   label: "Content",
-  fields: [richText],
+  fields: [className, richText],
 };
 
-const containerBlock: Template = {
+const containerTemplate: Template = {
   name: "container",
   label: "Container",
   fields: [
-    { type: "string", name: "className", label: "CSS Classes" },
+    className,
     {
       type: "object",
       list: true,
       name: "blocks",
       label: "Sections",
-      templates: [heroBlock, featureBlock, contentBlock],
+      templates: [heroTemplate, featureBlock, contentTemplate],
     },
   ],
 };
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
 
 export default defineConfig({
   branch,
@@ -173,7 +189,7 @@ export default defineConfig({
                 list: true,
                 name: "blocks",
                 label: "Sections",
-                templates: [containerBlock],
+                templates: [containerTemplate],
               },
             ],
           },

@@ -20,7 +20,8 @@ blocks:
         _template: content
       - richText: ''
         _template: content
-      - richText: |
+      - className: text-2xl
+        richText: |
           one **two** three
         _template: content
     _template: container
