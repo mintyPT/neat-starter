@@ -62,6 +62,7 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addFilter("markdown", (markdownString) => {
+    console.log(markdownString);
     return md.render(markdownString);
   });
 
