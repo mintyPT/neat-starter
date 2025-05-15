@@ -1,5 +1,5 @@
 <div class="container {{ block.className }}">
-    <div class="grid gap-8 justify-center mx-auto lg:gap-16 grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
+    <div class="{% if block.grid %}grid gap-8 justify-center mx-auto lg:gap-16 grid-cols-[repeat(auto-fit,minmax(200px,1fr))]{%endif%}">
         {% for block in block.blocks %}
             {%include "./" +block._template + ".html"%}
         {% endfor %}

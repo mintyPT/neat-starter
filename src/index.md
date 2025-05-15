@@ -1,30 +1,57 @@
 ---
+prose: true
 title: index
-layout: default
+layout: funnel
 blocks:
-  - blocks:
-      - items:
-          - title: Feature 1
-            text: Feature text
-        _template: features
-    _template: container
-  - className: my-16
+  - title: Top Banner
+    className: bg-orange-400
     blocks:
-      - tagline: hero tagline
-        headline: hero headline
-        text: hero text
-        _template: hero
+      - blocks:
+          - className: prose prose-xl text-white
+            richText: |
+              Yellow
+            _template: content
+        _template: container
+    _template: wrapper
+  - title: Container TOP
+    blocks:
+      - className: text-center prose mx-auto
+        richText: ''
+        content: >-
+          <h2>READY TO GROW YOUR GYM TO</h2>
+
+          <h1>£40k/ Month?</h1>
+
+          <h3>AND MANAGE IT IN 10 HOURS A WEEK OR LESS?</h3>
+
+          <h3>Get LIVE Coaching, Strategies & Workshops From a Multi-Studio
+          Owner for Only £47/month!</h3>
+
+          <div class="">Get LIVE Coaching, Strategies & Workshops From a
+          Multi-Studio Owner for Only £47/month! </div>
+        _template: content
+      - text: a
+        link: '#'
+        _template: callToAction
+      - className: text-center prose mx-auto
+        richText: ''
+        content: 'There is NO contract and NO minimum length - you can cancel ANYTIME '
+        _template: content
     _template: container
-  - blocks:
-      - richText: ''
-        _template: content
-      - richText: ''
-        _template: content
-      - className: text-2xl
-        richText: |
-          one **two** three
-        _template: content
-    _template: container
-_template: content
+  - title: Black
+    className: bg-black text-white
+    blocks:
+      - title: 2 columns
+        grid: true
+        blocks:
+          - richText: ''
+            content: left
+            _template: content
+          - richText: ''
+            content: Right
+            _template: content
+        _template: container
+    _template: wrapper
+_template: funnel
 ---
 

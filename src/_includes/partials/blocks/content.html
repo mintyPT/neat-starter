@@ -1,3 +1,8 @@
-<div class="{{ block.className }}">
+<div class="{% if prose == true %}{{ prose }} prose-stone{%endif%} {{ block.className }}">
+  {% if block.richText %}
     {{ block.richText | markdown | safe }}
+  {% endif %}
+  {% if block.content %}
+    {{ block.content | markdown | safe }}
+  {% endif %}
 </div>

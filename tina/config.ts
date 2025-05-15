@@ -1,4 +1,4 @@
-import { defineConfig, TinaField } from "tinacms";
+import { defineConfig, TinaField, Field } from "tinacms";
 import type { Template } from "tinacms";
 
 // Your hosting provider likely exposes this as an environment variable
@@ -15,12 +15,21 @@ const className: TinaField = {
   type: "string",
   name: "className",
   label: "CSS Classes",
+  // The 'default' property is not accepted directly on a field
+  // Instead, we need to use the 'ui.defaultValue' property
+  ui: {
+    defaultValue: "container",
+  },
 };
 
 const title: TinaField = {
   type: "string",
   name: "title",
   label: "Title",
+};
+
+const titleRequired: TinaField = {
+  ...title,
   isTitle: true,
   required: true,
 };
@@ -29,6 +38,15 @@ const richText: TinaField = {
   type: "rich-text",
   name: "richText",
   label: "Rich Text",
+};
+
+const contentText: TinaField = {
+  label: "Content",
+  name: "content",
+  type: "string",
+  ui: {
+    component: "textarea",
+  },
 };
 
 const body: TinaField = {
@@ -41,6 +59,26 @@ const body: TinaField = {
 ////////////////////////////////////////////////////////////
 // Blocks / Templates
 ////////////////////////////////////////////////////////////
+
+const callToAction: TinaField = {
+  type: "object",
+  name: "callToAction",
+  label: "Call to Action",
+  fields: [
+    className,
+    {
+      type: "string",
+      label: "Text",
+      name: "text",
+    },
+    {
+      type: "string",
+      label: "Link",
+      name: "link",
+    },
+  ],
+};
+
 const heroTemplate: Template = {
   name: "hero",
   label: "Hero",
@@ -94,20 +132,52 @@ const featureBlock: Template = {
 const contentTemplate: Template = {
   name: "content",
   label: "Content",
-  fields: [className, richText],
+  fields: [className, richText, contentText],
+};
+
+const listItemProps = (item) => {
+  return { label: `(${item._template}) ${item?.title ?? "-"} ` };
 };
 
 const containerTemplate: Template = {
   name: "container",
   label: "Container",
+  ui: {
+    itemProps: listItemProps,
+  },
   fields: [
+    title,
+    className,
+    {
+      type: "boolean",
+      label: "Grid",
+      name: "grid",
+    },
+    {
+      type: "object",
+      list: true,
+      name: "blocks",
+      label: "Sections",
+      templates: [heroTemplate, featureBlock, contentTemplate, callToAction],
+    },
+  ],
+};
+
+const wrapperTemplate: Template = {
+  name: "wrapper",
+  label: "Wrapper",
+  ui: {
+    itemProps: listItemProps,
+  },
+  fields: [
+    title,
     className,
     {
       type: "object",
       list: true,
       name: "blocks",
       label: "Sections",
-      templates: [heroTemplate, featureBlock, contentTemplate],
+      templates: [containerTemplate],
     },
   ],
 };
@@ -173,7 +243,7 @@ export default defineConfig({
             name: "content",
             label: "Content Page",
             fields: [
-              title,
+              titleRequired,
               {
                 name: "layout",
                 label: "Layout",
@@ -189,7 +259,34 @@ export default defineConfig({
                 list: true,
                 name: "blocks",
                 label: "Sections",
-                templates: [containerTemplate],
+                templates: [wrapperTemplate, containerTemplate],
+              },
+            ],
+          },
+          {
+            name: "funnel",
+            label: "Funnel Page",
+            fields: [
+              titleRequired,
+              {
+                name: "layout",
+                label: "Layout",
+                default: "funnel",
+                type: "string",
+                ui: {
+                  component: "radio-group",
+                  options: [{ label: "Funnel", value: "funnel" }],
+                },
+              },
+              {
+                type: "object",
+                list: true,
+                name: "blocks",
+                label: "Sections",
+                templates: [wrapperTemplate, containerTemplate],
+                ui: {
+                  itemProps: listItemProps,
+                },
               },
             ],
           },
@@ -200,7 +297,7 @@ export default defineConfig({
         label: "Posts",
         path: "src/posts",
         fields: [
-          title,
+          titleRequired,
           {
             type: "string",
             name: "description",
