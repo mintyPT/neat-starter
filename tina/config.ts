@@ -8,19 +8,40 @@ const branch =
   process.env.HEAD ||
   "main";
 
+const richText: TinaField = {
+  type: "rich-text",
+  name: "richText",
+  label: "Rich Text",
+};
+
+const textList: TinaField = {
+  name: "textList",
+  type: "string",
+  label: "Text List",
+  list: true,
+};
+
+const image: TinaField = {
+  name: "image",
+  type: "image",
+  label: "Image",
+};
+
+// *************************************************************************
+
 ////////////////////////////////////////////////////////////
 // Fields
 ////////////////////////////////////////////////////////////
-const className: TinaField = {
-  type: "string",
-  name: "className",
-  label: "CSS Classes",
-  // The 'default' property is not accepted directly on a field
-  // Instead, we need to use the 'ui.defaultValue' property
-  ui: {
-    defaultValue: "container",
-  },
-};
+// const className: TinaField = {
+//   type: "string",
+//   name: "className",
+//   label: "CSS Classes",
+//   // The 'default' property is not accepted directly on a field
+//   // Instead, we need to use the 'ui.defaultValue' property
+//   ui: {
+//     defaultValue: "container",
+//   },
+// };
 
 const title: TinaField = {
   type: "string",
@@ -34,20 +55,14 @@ const titleRequired: TinaField = {
   required: true,
 };
 
-const richText: TinaField = {
-  type: "rich-text",
-  name: "richText",
-  label: "Rich Text",
-};
-
-const contentText: TinaField = {
-  label: "Content",
-  name: "content",
-  type: "string",
-  ui: {
-    component: "textarea",
-  },
-};
+// const contentText: TinaField = {
+//   label: "Content",
+//   name: "content",
+//   type: "string",
+//   ui: {
+//     component: "textarea",
+//   },
+// };
 
 const body: TinaField = {
   type: "rich-text",
@@ -60,127 +75,150 @@ const body: TinaField = {
 // Blocks / Templates
 ////////////////////////////////////////////////////////////
 
-const callToAction: TinaField = {
-  type: "object",
-  name: "callToAction",
-  label: "Call to Action",
-  fields: [
-    className,
-    {
-      type: "string",
-      label: "Text",
-      name: "text",
-    },
-    {
-      type: "string",
-      label: "Link",
-      name: "link",
-    },
-  ],
+// const callToAction: TinaField = {
+//   type: "object",
+//   name: "callToAction",
+//   label: "Call to Action",
+//   fields: [
+//     className,
+//     {
+//       type: "string",
+//       label: "Text",
+//       name: "text",
+//     },
+//     {
+//       type: "string",
+//       label: "Link",
+//       name: "link",
+//     },
+//   ],
+// };
+
+// const heroTemplate: Template = {
+//   name: "hero",
+//   label: "Hero",
+//   fields: [
+//     {
+//       type: "string",
+//       label: "Tagline",
+//       name: "tagline",
+//     },
+//     {
+//       type: "string",
+//       label: "Headline",
+//       name: "headline",
+//     },
+//     {
+//       type: "string",
+//       label: "Text",
+//       name: "text",
+//       ui: {
+//         component: "textarea",
+//       },
+//     },
+//   ],
+// };
+
+// const featureBlock: Template = {
+//   name: "features",
+//   label: "Features",
+//   fields: [
+//     {
+//       type: "object",
+//       label: "Feature Items",
+//       name: "items",
+//       list: true,
+//       fields: [
+//         {
+//           type: "string",
+//           label: "Title",
+//           name: "title",
+//         },
+//         {
+//           type: "string",
+//           label: "Text",
+//           name: "text",
+//         },
+//       ],
+//     },
+//   ],
+// };
+
+// const contentTemplate: Template = {
+//   name: "content",
+//   label: "Content",
+//   fields: [className, richText, contentText],
+// };
+
+// const listItemProps = (item) => {
+//   return { label: `(${item._template}) ${item?.title ?? "-"} ` };
+// };
+
+// const containerTemplate: Template = {
+//   name: "container",
+//   label: "Container",
+//   ui: {
+//     itemProps: listItemProps,
+//   },
+//   fields: [
+//     title,
+//     className,
+//     {
+//       type: "boolean",
+//       label: "Grid",
+//       name: "grid",
+//     },
+//     {
+//       type: "object",
+//       list: true,
+//       name: "blocks",
+//       label: "Sections",
+//       templates: [
+//         /*heroTemplate, featureBlock, contentTemplate, callToAction*/
+//       ],
+//     },
+//   ],
+// };
+
+// const wrapperTemplate: Template = {
+//   name: "wrapper",
+//   label: "Wrapper",
+//   ui: {
+//     itemProps: listItemProps,
+//   },
+//   fields: [
+//     title,
+//     className,
+//     {
+//       type: "object",
+//       list: true,
+//       name: "blocks",
+//       label: "Sections",
+//       templates: [
+//         /*containerTemplate*/
+//       ],
+//     },
+//   ],
+// };
+
+const richTextTemplate: Template = {
+  name: "richText",
+  label: "Rich Text",
+  fields: [richText],
 };
 
-const heroTemplate: Template = {
-  name: "hero",
-  label: "Hero",
-  fields: [
-    {
-      type: "string",
-      label: "Tagline",
-      name: "tagline",
-    },
-    {
-      type: "string",
-      label: "Headline",
-      name: "headline",
-    },
-    {
-      type: "string",
-      label: "Text",
-      name: "text",
-      ui: {
-        component: "textarea",
-      },
-    },
-  ],
+const textListTemplate: Template = {
+  name: "textList",
+  label: "Text List",
+  fields: [textList],
 };
 
-const featureBlock: Template = {
-  name: "features",
-  label: "Features",
-  fields: [
-    {
-      type: "object",
-      label: "Feature Items",
-      name: "items",
-      list: true,
-      fields: [
-        {
-          type: "string",
-          label: "Title",
-          name: "title",
-        },
-        {
-          type: "string",
-          label: "Text",
-          name: "text",
-        },
-      ],
-    },
-  ],
+const imageTemplate: Template = {
+  name: "image",
+  label: "Image",
+  fields: [image],
 };
 
-const contentTemplate: Template = {
-  name: "content",
-  label: "Content",
-  fields: [className, richText, contentText],
-};
-
-const listItemProps = (item) => {
-  return { label: `(${item._template}) ${item?.title ?? "-"} ` };
-};
-
-const containerTemplate: Template = {
-  name: "container",
-  label: "Container",
-  ui: {
-    itemProps: listItemProps,
-  },
-  fields: [
-    title,
-    className,
-    {
-      type: "boolean",
-      label: "Grid",
-      name: "grid",
-    },
-    {
-      type: "object",
-      list: true,
-      name: "blocks",
-      label: "Sections",
-      templates: [heroTemplate, featureBlock, contentTemplate, callToAction],
-    },
-  ],
-};
-
-const wrapperTemplate: Template = {
-  name: "wrapper",
-  label: "Wrapper",
-  ui: {
-    itemProps: listItemProps,
-  },
-  fields: [
-    title,
-    className,
-    {
-      type: "object",
-      list: true,
-      name: "blocks",
-      label: "Sections",
-      templates: [containerTemplate],
-    },
-  ],
-};
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
@@ -200,8 +238,8 @@ export default defineConfig({
   },
   media: {
     tina: {
-      mediaRoot: "",
-      publicFolder: "_site",
+      mediaRoot: "media",
+      publicFolder: "src",
     },
   },
   // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/schema/
@@ -239,30 +277,32 @@ export default defineConfig({
         label: "Pages",
         path: "src",
         templates: [
-          {
-            name: "content",
-            label: "Content Page",
-            fields: [
-              titleRequired,
-              {
-                name: "layout",
-                label: "Layout",
-                default: "default",
-                type: "string",
-                ui: {
-                  component: "radio-group",
-                  options: [{ label: "Default", value: "default" }],
-                },
-              },
-              {
-                type: "object",
-                list: true,
-                name: "blocks",
-                label: "Sections",
-                templates: [wrapperTemplate, containerTemplate],
-              },
-            ],
-          },
+          // {
+          //   name: "content",
+          //   label: "Content Page",
+          //   fields: [
+          //     titleRequired,
+          //     {
+          //       name: "layout",
+          //       label: "Layout",
+          //       default: "default",
+          //       type: "string",
+          //       ui: {
+          //         component: "radio-group",
+          //         options: [{ label: "Default", value: "default" }],
+          //       },
+          //     },
+          //     {
+          //       type: "object",
+          //       list: true,
+          //       name: "blocks",
+          //       label: "Sections",
+          //       templates: [
+          //         /*wrapperTemplate, containerTemplate*/
+          //       ],
+          //     },
+          //   ],
+          // },
           {
             name: "funnel",
             label: "Funnel Page",
@@ -283,10 +323,15 @@ export default defineConfig({
                 list: true,
                 name: "blocks",
                 label: "Sections",
-                templates: [wrapperTemplate, containerTemplate],
-                ui: {
+                templates: [
+                  richTextTemplate,
+                  textListTemplate,
+                  imageTemplate,
+                  /*wrapperTemplate, containerTemplate*/
+                ],
+                /*ui: {
                   itemProps: listItemProps,
-                },
+                },*/
               },
             ],
           },

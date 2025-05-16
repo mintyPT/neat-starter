@@ -1,15 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @plugin "@tailwindcss/typography";
 
 h1 {
-  @apply text-4xl tracking-tighter mb-3 text-center lg:text-7xl;
+  @apply text-4xl tracking-tighter lg:text-7xl;
+  /* mb-3 text-center  */
 }
 
 h3 {
-  @apply text-2xl font-bold mb-3;
+  @apply text-2xl;
+  /*  font-bold mb-3 */
 }
 
 /* Syntax Highlighting*/
@@ -19,6 +20,6 @@ body pre[class*="language-"] {
   @apply bg-gray-800;
 }
 
-.container {
+/* .container {
   @apply max-w-screen-lg;
-}
+} */
